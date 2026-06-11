@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { personal } from "@/lib/data/personal";
@@ -44,9 +45,24 @@ export default function Navbar() {
         <Link
           href="/"
           aria-label={`${personal.name} home`}
-          className="font-mono text-sm tracking-wide text-[var(--accent)] transition-colors hover:text-[var(--text)]"
+          className="group flex items-center"
         >
-          {personal.monogram}
+          {personal.avatarSrc ? (
+            <span className="relative block h-9 w-9 overflow-hidden rounded-full border border-[var(--border)] transition-colors group-hover:border-[var(--accent)]">
+              <Image
+                src={personal.avatarSrc}
+                alt={`${personal.name} portrait`}
+                fill
+                sizes="36px"
+                className="object-cover"
+                // style={{ objectPosition: "72% 28%", transform: "scale(1.28)" }}
+              />
+            </span>
+          ) : (
+            <span className="font-mono text-sm tracking-wide text-[var(--accent)] transition-colors group-hover:text-[var(--text)]">
+              {personal.monogram}
+            </span>
+          )}
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">
